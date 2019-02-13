@@ -1,7 +1,5 @@
-var S = "aa";
-var T = "aa";
-
 /**
+ * @description https://leetcode.com/problems/minimum-window-substring/
  * @param {string} s
  * @param {string} t
  * @return {string}
@@ -17,24 +15,18 @@ var minWindow = function(s, t) {
     var ans = "";
     var ansLen = Infinity;
 
-    // console.log("tlen: " + tLen)
     // create a letter frequency table
     for (var i = 0; i < tLen; i++) {
-        // console.log("i = " + i);
         if (table[t[i]]) {
             table[t[i]]++;
         } else {
             table[t[i]] = 1;
             counter++;
         }
-        // console.log("table: " + JSON.stringify(table));
     }
 
     while (end < sLen) {
-        // console.log("end: " + end);
         endChar = s[end];
-        // console.log("\n*********************");
-        // console.log("endchar: " + endChar);
 
         if (table[endChar] !== undefined) {
             table[endChar]--;
@@ -44,11 +36,7 @@ var minWindow = function(s, t) {
             }
         }
 
-        // console.log("candidate: " + s.substr(begin, end - begin + 1));
-        // console.log("counter: " + counter);
-
         while (counter === 0) {
-            // console.log("begin: " + begin);
 
             if (begin > end) {
                 break;
@@ -76,4 +64,6 @@ var minWindow = function(s, t) {
     return ans;
 };
 
+var S = "aa";
+var T = "aa";
 console.log(minWindow(S, T));
