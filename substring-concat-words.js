@@ -7,6 +7,30 @@
 var findSubstring = function(s, words) {
     var sLen = s.length;
     var wordsLen = words.length;
+    var table = {};
+    var ans = [];
+    var start = 0;
+    var end = 0;
+    var numNeededWords = 0;
+
+    for (var i = 0; i < wordsLen; i++) {
+        if (table[words[i]] === undefined) {
+            table[words[i]] = 1;
+            numNeededWords++;
+        } else {
+            table[words[i]]++;
+        }
+    }
+
+    console.log(JSON.stringify(table));
+
+    while (end < sLen) {
+
+
+        if (num)
+
+        end++;
+    }
 
     // keep track of how many words have been found in the current answer candidate
     // wordTable = { "the": 1, "words": 1, "to": 1, "look": 1, "for": 1 }
@@ -22,4 +46,10 @@ var findSubstring = function(s, words) {
         // 2. Use the length of the "found" word to create a substring with remaining
         //    characters
     // 
+
+    return ans;
 };
+
+var S = "barfoothefoobarman";
+var WORDS = ["foo", "bar"];
+console.log(findSubstring(S, WORDS));
