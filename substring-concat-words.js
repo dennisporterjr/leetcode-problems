@@ -36,35 +36,35 @@ var findSubstring = function(s, words) {
     var tableRef = Object.assign({}, table);
     var counterRef = counter;
 
-    log("windowLen:", windowLen);
-    log("wordsLen:", wordsLen);
-    log("counter:", counter);
-    log(JSON.stringify(table));
+    // log("windowLen:", windowLen);
+    // log("wordsLen:", wordsLen);
+    // log("counter:", counter);
+    // log(JSON.stringify(table));
 
     for (var j = 0; j < wordSize; j++) {
         begin = j;
         end = j;
         table = Object.assign({}, tableRef);
         counter = counterRef;
-        log("\n");
-        log("begin:", begin, "end:", end);
+        // log("\n");
+        // log("begin:", begin, "end:", end);
 
         while (end+wordSize-1 < sLen) {
             lastWord = s.substr(end, wordSize);
-            log("lastWord:", lastWord);
+            // log("lastWord:", lastWord);
             
             if (table[lastWord] !== undefined) {
                 table[lastWord]--;
                 if (table[lastWord] === 0) counter--;
             }
-            log("table:", table);
-            log("currWindowSize:", end+wordSize-begin)
-            log("counter:", counter);
+            // log("table:", table);
+            // log("currWindowSize:", end+wordSize-begin)
+            // log("counter:", counter);
 
             if (end+wordSize-begin === windowLen) {
                 if (counter === 0) {
                     if (ans.indexOf(begin) < 0) ans.push(begin);
-                    log("solution = ", "begin:", begin, "substr:", s.substr(begin, end+wordSize-begin));
+                    // log("solution = ", "begin:", begin, "substr:", s.substr(begin, end+wordSize-begin));
                 }
 
                 firstWord = s.substr(begin, wordSize);
