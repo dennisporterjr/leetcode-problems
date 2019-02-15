@@ -37,14 +37,17 @@ var findSubstring = function(s, words) {
     var counterRef = counter;
 
     log("windowLen:", windowLen);
+    log("wordsLen:", wordsLen);
     log("counter:", counter);
     log(JSON.stringify(table));
 
-    for (var j = 0; j < wordsLen; j++) {
+    for (var j = 0; j < wordSize; j++) {
         begin = j;
         end = j;
         table = Object.assign({}, tableRef);
         counter = counterRef;
+        log("\n");
+        log("begin:", begin, "end:", end);
 
         while (end+wordSize-1 < sLen) {
             lastWord = s.substr(end, wordSize);
@@ -55,7 +58,7 @@ var findSubstring = function(s, words) {
                 if (table[lastWord] === 0) counter--;
             }
             log("table:", table);
-            log("currwindowsize:", end+wordSize-begin)
+            log("currWindowSize:", end+wordSize-begin)
             log("counter:", counter);
 
             if (end+wordSize-begin === windowLen) {
@@ -81,18 +84,18 @@ var findSubstring = function(s, words) {
 
 con.clear();
 var args = [
-    {
-        s: "barfoothefoobarman",
-        words: ["foo", "bar"]
-    },
-    {
-        s: "wordgoodgoodgoodbestword",
-        words: ["word","good","best","word"]
-    },
+    // {
+    //     s: "barfoothefoobarman",
+    //     words: ["foo", "bar"]
+    // },
+    // {
+    //     s: "wordgoodgoodgoodbestword",
+    //     words: ["word","good","best","word"]
+    // },
     {
         s: "mississippi",
         words: ["is"]
-    }
+    },
 ];
 
 // I should cache args.length but also :P
