@@ -1,3 +1,5 @@
+var con = console;
+var log = con.log;
 /**
  * @description https://leetcode.com/problems/substring-with-concatenation-of-all-words/
  * @param {string} s
@@ -9,47 +11,93 @@ var findSubstring = function(s, words) {
     var wordsLen = words.length;
     var table = {};
     var ans = [];
-    var start = 0;
+    var begin = 0;
     var end = 0;
-    var numNeededWords = 0;
+    var currwindow = "";
+    var lastWord = "";
+    var firstWord = "";
+    var counter = 0;
+    var windowLen = words.join("").length;
+
+    if (wordsLen == 0 || sLen < windowLen) return ans;
+
+    var wordSize = words[0].length;
+
 
     for (var i = 0; i < wordsLen; i++) {
         if (table[words[i]] === undefined) {
             table[words[i]] = 1;
-            numNeededWords++;
+            counter++;
         } else {
             table[words[i]]++;
         }
     }
 
-    console.log(JSON.stringify(table));
+    var tableRef = Object.assign({}, table);
+    var counterRef = counter;
 
-    while (end < sLen) {
+    log("windowLen:", windowLen);
+    log("counter:", counter);
+    log(JSON.stringify(table));
 
+    for (var j = 0; j < wordsLen; j++) {
+        begin = j;
+        end = j;
+        table = Object.assign({}, tableRef);
+        counter = counterRef;
 
-        if (num)
+        while (end+wordSize-1 < sLen) {
+            lastWord = s.substr(end, wordSize);
+            log("lastWord:", lastWord);
+            
+            if (table[lastWord] !== undefined) {
+                table[lastWord]--;
+                if (table[lastWord] === 0) counter--;
+            }
+            log("table:", table);
+            log("currwindowsize:", end+wordSize-begin)
+            log("counter:", counter);
 
-        end++;
+            if (end+wordSize-begin === windowLen) {
+                if (counter === 0) {
+                    if (ans.indexOf(begin) < 0) ans.push(begin);
+                    log("solution = ", "begin:", begin, "substr:", s.substr(begin, end+wordSize-begin));
+                }
+
+                firstWord = s.substr(begin, wordSize);
+
+                if (table[firstWord] !== undefined) {
+                    table[firstWord]++;
+                    if (table[firstWord] > 0) counter++;
+                }
+
+                begin += wordSize;
+            }
+            end += wordSize;
+        }
     }
-
-    // keep track of how many words have been found in the current answer candidate
-    // wordTable = { "the": 1, "words": 1, "to": 1, "look": 1, "for": 1 }
-    // numNeededWords = wordsLen; // in this case 5
-
-    // 1. Start at first character // while(i < sLen)
-    // 2. Check if the string starting at that index (i) starts with any word in the 
-    //    "words" array.
-    // If so, 
-        // 0. Have we found all the words?
-            // 1. If so add the starting index (i) to the answer array
-        // 1. If we haven't found all the words, decrement numNeededWords
-        // 2. Use the length of the "found" word to create a substring with remaining
-        //    characters
-    // 
-
     return ans;
 };
 
-var S = "barfoothefoobarman";
-var WORDS = ["foo", "bar"];
-console.log(findSubstring(S, WORDS));
+con.clear();
+var args = [
+    {
+        s: "barfoothefoobarman",
+        words: ["foo", "bar"]
+    },
+    {
+        s: "wordgoodgoodgoodbestword",
+        words: ["word","good","best","word"]
+    },
+    {
+        s: "mississippi",
+        words: ["is"]
+    }
+];
+
+// I should cache args.length but also :P
+for (var k = 0; k < args.length; k++) {
+    log("s:", args[k].s, "words:", args[k].words);
+    log("returns:", findSubstring(args[k].s, args[k].words));
+    log("\n");
+}
