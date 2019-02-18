@@ -1,13 +1,13 @@
 var arr = [];
-var len = 9999;
+var len = 100;
 
-var str = "[ ";
 for (var i = 0; i < len; i++) {
-    str += Math.ceil(Math.random() * 100);
-    str += (i !== len-1) ? ", ": "";
-    str += (i%30 === 0) ? "\n" : "";
+    var elem = Math.ceil(Math.random() * 100);
+    // no dupes
+    if (arr.indexOf(elem) === -1) {
+        arr.push(elem);
+    }
 }
 
-str += "]";
 
-console.log(str);
+console.log(arr.sort((a,b) => { return a-b; }));
