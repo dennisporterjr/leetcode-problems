@@ -1,5 +1,5 @@
 ### Algorithms To Master
-* - denotes one session where the algorithm was written from memory
+- \* denotes one session where the algorithm was written from memory
 
 - [ ] Insert Sort (*)
 - [ ] Quick Sort
