@@ -1,29 +1,34 @@
 
 // https://programmingpraxis.com/2020/04/03/homework-3/
 
-function oneDiffSum(c, n) {
+function arraysEqual(a, b) {
+    return (a || "").toString() == (b || "").toString();
+}
+
+function oneDiffSum(goal, solutionLength) {
     // pick a number
     // iterate over it's combinations with the next largest number
     // check to see if any of those combinations add up to our number
-    var arr = []; var i = 0, len = Math.floor(c/2);
+    var arr = []; var num = 0, len = Math.floor(goal/2);
 
-    for(; i < len; i++) {
-        var j = i + 1;
+    for(; num < len; num++) {
+        var numPlusOne = num + 1,
+            maxSetSum = numPlusOne * solutionLength,
+            minSetSum = num * solutionLength;
 
-        if(j * n < c) continue;
+        if(maxSetSum < goal) continue;
 
-        var l = i * n;
-        var diff = c - l;
+        var bridge = goal - minSetSum;
 
-        for(var k = 0; k < n; k++) {
-            arr.push(k < diff ? j : i);
+        for(var k = 0; k < solutionLength; k++) {
+            arr.push(k < bridge ? numPlusOne : num);
         }
 
         break;
     }
 
-    if(c === 0) {
-        for(var k = 0; k < n; k++) {
+    if(goal === 0) {
+        for(var k = 0; k < solutionLength; k++) {
             arr.push(0);
         }
     }
@@ -31,7 +36,23 @@ function oneDiffSum(c, n) {
     return arr;
 }
 
-console.log(oneDiffSum(26,7)); // 4 4 4 4 4 3 3
-console.log(oneDiffSum(18,3)); // 6 6 6
-console.log(oneDiffSum(5,10)); // 1 1 1 1 1 0 0 0 0 0
-console.log(oneDiffSum(0,2));  // 0 0 
+/**********************
+ * TESTS ///          *
+***********************/
+
+var tests = [
+    { args: [26, 7],    expected: [4, 4, 4, 4, 4, 3, 3 ] },
+    { args: [18,3],     expected: [6, 6, 6] },
+    { args: [5,10],     expected: [1, 1, 1, 1, 1, 0, 0, 0, 0, 0] },
+    { args: [0,2],      expected: [0, 0] }
+];
+
+tests.forEach((test, i) => {
+    var actual = oneDiffSum.apply(null, test.args);
+
+    if (arraysEqual(actual, test.expected)) {
+        console.log('passed', test.args);
+    } else {
+        console.log('failed', test.args);
+    }
+});
