@@ -2,7 +2,7 @@
 
 
 function oneDiffSum(goal, solutionLength) {
-    var solution = [], halfGoal = Math.floor(goal/2);
+    var solution = [], halfGoal = Math.floor(goal/2), num = 0;
 
     // if the goal is 0, we're just returning a bunch of zeros...
     if(goal === 0) {
@@ -12,7 +12,7 @@ function oneDiffSum(goal, solutionLength) {
     }
 
     // Start checking for solutions at 0...
-    for(let num = 0; num < halfGoal; num++) {
+    while(num < halfGoal && !solution.length) {
         var numPlusOne = num + 1,
             // given a number set.. 
             //      1) ..with a length of exactly "solutionLength"..
@@ -28,15 +28,16 @@ function oneDiffSum(goal, solutionLength) {
 
         // if the max sum of the set doesn't add up to the goal, then there's 
         // no use in checking further..
-        if(maxSetSum <= goal) continue;
+        if(maxSetSum <= goal) {
+            num++;
+            continue;
+        }
 
         overshoot = goal - minSetSum;
 
         for(let k = 0; k < solutionLength; k++) {
             solution.push(k < overshoot ? numPlusOne : num);
         }
-
-        break;
     }
 
     return solution;
@@ -71,16 +72,17 @@ if(process.argv[2] && process.argv[3]) {
         { args: [26, 7],    expected: [4, 4, 4, 4, 4, 3, 3 ] },
         { args: [18,3],     expected: [6, 6, 6] },
         { args: [5,10],     expected: [1, 1, 1, 1, 1, 0, 0, 0, 0, 0] },
-        { args: [0,2],      expected: [0, 0] }
+        { args: [0,2],      expected: [0, 0] },
+        { args: [112,8],      expected: [14, 14, 14, 14, 14, 14, 14, 14] }
     ];
 
     tests.forEach((test, i) => {
         var actual = oneDiffSum.apply(null, test.args);
 
         if (arraysEqual(actual, test.expected)) {
-            console.log('passed', test.args);
+            console.log("passed", test.args, "\t=>", test.expected);
         } else {
-            console.log('failed', test.args);
+            console.log("failed", test.args);
         }
     });
 
