@@ -73,6 +73,8 @@ if(process.argv[2] && process.argv[3]) {
         { args: [18,3],     expected: [6, 6, 6] },
         { args: [5,10],     expected: [1, 1, 1, 1, 1, 0, 0, 0, 0, 0] },
         { args: [0,2],      expected: [0, 0] },
+        // TODO: Fix for negatives...
+        { args: [-8,3],      expected: [-3, -3, -2] },
         { args: [112,8],      expected: [14, 14, 14, 14, 14, 14, 14, 14] }
     ];
 
@@ -82,7 +84,7 @@ if(process.argv[2] && process.argv[3]) {
         if (arraysEqual(actual, test.expected)) {
             console.log("passed", test.args, "\t=>", test.expected);
         } else {
-            console.log("failed", test.args);
+            console.log("failed", test.args, "\t=>", actual);
         }
     });
 
