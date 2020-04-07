@@ -2,10 +2,17 @@
 
 
 function oneDiffSum(goal, solutionLength) {
-    var solution = [], len = Math.floor(goal/2);
+    var solution = [], halfGoal = Math.floor(goal/2);
+
+    // if the goal is 0, we're just returning a bunch of zeros...
+    if(goal === 0) {
+        for(let k = 0; k < solutionLength; k++) {
+            solution.push(0);
+        }
+    }
 
     // Start checking for solutions at 0...
-    for(let num = 0; num < len; num++) {
+    for(let num = 0; num < halfGoal; num++) {
         var numPlusOne = num + 1,
             // given a number set.. 
             //      1) ..with a length of exactly "solutionLength"..
@@ -30,12 +37,6 @@ function oneDiffSum(goal, solutionLength) {
         }
 
         break;
-    }
-
-    if(goal === 0) {
-        for(var k = 0; k < solutionLength; k++) {
-            solution.push(0);
-        }
     }
 
     return solution;
