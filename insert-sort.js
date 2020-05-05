@@ -1,4 +1,57 @@
 
+var insertSort = function (a) {
+    var l = a.length, i = 1;
+
+    while(l > i) {
+        let k = i, num = a[k];
+
+        while(k > 0 && a[k-1] > num) {
+            a[k] = a[k-1];
+            k--;
+        }
+
+        a[k] = num;
+        i++;
+    }
+
+    return a;
+};
+
+console.log(insertSort([8,3,5,4,1,9,-2]));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var insertSort = function (arr) {
     var n = arr.length;
 
@@ -16,5 +69,3 @@ var insertSort = function (arr) {
 
     return arr;
 };
-
-console.log(insertSort([8,3,5,4,1,9,-2]));

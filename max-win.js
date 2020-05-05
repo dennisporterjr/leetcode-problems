@@ -1,33 +1,23 @@
-var maxSlidingWindow = function(nums, k) {
-    var len = nums.length;
-    var currMax = -Infinity;
-    var tailMax = -Infinity;
-    var lastMaxIndex = 0;
-    var max = [];
-    
-    for (var j = 0; j < k; j++) {
-        currMax = Math.max(currMax, nums[j]);
-        if (j >= 1) {
-            tailMin = Math.min(tailMax, nums[j]);
-        }
+var mxsw = function (nums, k) {
+    var curr = 0, prev = 0, len = nums.length, i = 0, max = -Infinity;
+    for (; i < k; i++)
+        curr += nums[i];
+    for (; i < len; i++) {
+        prev = curr;
+        curr += nums[i] - nums[i - 3];
+        printmx(nums, k, i);
     }
-
-    max.push(currMax);
-
-    
-    console.log({currMax, tailMax});
-    // for (var i = 1; i < len-k; i++) {
-    //     var newNum = nums[i+k-1];
-    //     max.push(Math.max(tailMax, newNum));
-    //     tailMax = Math.max();
-    // }
-
-    return max;
+    return 'hey';
 };
-
-console.log(maxSlidingWindow([4,3,-1,-3,5,3,6,7], 3));
-
-
+var printmx = function (arr, wdw, from) {
+    var out = "";
+    arr.forEach(function (elem, i) {
+        out += from >= i && i < (from + wdw) ? "." : "";
+        out += elem + "  ";
+    });
+    console.log(out);
+};
+console.log(mxsw([4, 3, 7, -1, -3, 5, 3, 6], 3));
 // [4  3  -1  -3] 5  3  6  7       4 (3)
 //  4 [3  -1  -3  5] 3  6  7       3 (-1)
 //  4  3 [-1  -3  5  3] 6  7       5 (5)
