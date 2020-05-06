@@ -11,7 +11,7 @@ var minWindow = function(s, t, log) {
 
     if(s.length === 0 || t.length === 0) return '';
 
-    var table = {},
+    var table = Array(128).fill(0),
         fslen,
         tlen = t.length,
         ans = '',
@@ -22,16 +22,14 @@ var minWindow = function(s, t, log) {
 
 
     for(let k = 0; k < t.length; k++) {
-        if(table[t[k]]) {
-            table[t[k]]++;
-        } else {
-            table[t[k]] = 1;
-        }
+        table[t.charCodeAt(k)]++;
         count++;
     }
 
+    log && l(table);
+
     for(let k = 0; k < s.length; k++) {
-        if(s[k] in table) {
+        if(t.indexOf(s[k]) > -1) {
             fs.push(k);
         }
     }
@@ -43,7 +41,7 @@ var minWindow = function(s, t, log) {
 
         if(left > right) break;
 
-        if(table[s[fs[right]]]-- > 0) count--;
+        if(table[s.charCodeAt(fs[right])]-- > 0) count--;
 
         while(count === 0) {
 
@@ -61,7 +59,7 @@ var minWindow = function(s, t, log) {
             if(ans.length === tlen) return ans;
 
             left++;
-            if(table[s[fs[left-1]]]++ > -1) count++;
+            if(table[s.charCodeAt(fs[left-1])]++ > -1) count++;
         } 
 
         loop = nest ? loop : (loop+1);
