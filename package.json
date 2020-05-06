@@ -1,0 +1,23 @@
+{
+  "name": "practice-algorithms",
+  "version": "1.0.0",
+  "description": "algorithms I practice from time to time.",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "max-win": "tsc ./max-window/max-win.ts && node ./max-window/max-win.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dennisporterjr/practice-algorithms.git"
+  },
+  "author": "Dennis Porter Jr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dennisporterjr/practice-algorithms/issues"
+  },
+  "homepage": "https://github.com/dennisporterjr/practice-algorithms#readme",
+  "dependencies": {
+    "typescript": "^3.8.3"
+  }
+}
