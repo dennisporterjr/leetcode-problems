@@ -22,37 +22,32 @@ var minWindow = function(s, t) {
         count++;
     });
 
-    if(s[right] in table) {
-        if(table[s[right]] > 0) count--;
-        table[s[right]]--;
-        l('first check', js(table), {count});
+
+    function updateRight(r) {
+        if(r in table) {
+            if(table[r]-- > 0) count--;
+        }
     }
+    
+    while(right < slen) {
+        if(left > right) break;
 
-    while(right < slen && left <= right && left > -1) {
-        if(count < 1) {
-            let al = ans.length;
-            ans = al === 0 || ans.length > (right-left) ? s.slice(left,right+1) : ans;
+        updateRight(s[right]);
 
-            l(js(ans));
-            l('answer found', js(table), {count});
+        while(!count) {
+
+            if(left > right) break;
+
+            ans = !ans || ans.length > (right-left) ? s.slice(left,right+1) : ans;
 
             left++;
-            if(s[left-1] in table) {
-                if(table[s[left-1]] > -1) count++;
-                table[s[left-1]]++;
+            let removed = s[left-1];
+            if(removed in table) {
+                if(table[removed]++ > -1) count++;
             }
+        } 
 
-        } else {
-            l(js(s.slice(left,right+1)));
-            l('no answer', js(table), {count});
-
-            right++;
-            if(s[right] in table) {
-                if(table[s[right]] > 0) count--;
-                table[s[right]]--;
-            }
-        }
-        l("\n");
+        right++;
     }
     
     return ans;
@@ -67,19 +62,3 @@ var T = "aba";
 // var T2 = "aa";
 l(minWindow(S, T));
 //l(minWindow(S2, T2));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
