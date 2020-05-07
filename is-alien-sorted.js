@@ -9,6 +9,9 @@ var l = console.log;
 var isAlienSorted = function(words, order) {
     let wordTable = {};
     let letterTable = {};
+    let orderIndex = {};
+    let first;
+    let second;
 
     for(let i = 0; i < words.length-1; i++) {
         let firstWord = words[i];
@@ -22,13 +25,26 @@ var isAlienSorted = function(words, order) {
         if(secondWord.startsWith(firstWord)) continue;
 
         for(let j = 0; j < firstWordLength; j++) {
-            let lHash = firstWord[j] + "|" + secondWord[j];
+            let a = firstWord[j];
+            let b = secondWord[j];
+            let lHash = a + "|" + b;
 
             if(letterTable[lHash] === "same") continue;
             if(letterTable[lHash] === "compared") break;
 
-            let first = order.indexOf(firstWord[j]);
-            let second = order.indexOf(secondWord[j]);
+            if(orderIndex[a]) {
+                first = orderIndex[a];
+            } else {
+                first = order.indexOf(a);
+                orderIndex[a] = first;
+            }
+
+            if(orderIndex[b]) {
+                second = orderIndex[b];
+            } else {
+                second = order.indexOf(b);
+                orderIndex[b] = second;
+            }
 
             if(first < second && j === 0) break;
             
