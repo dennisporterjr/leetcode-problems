@@ -16,17 +16,37 @@ var c = function(item) {
  * @return {boolean}
  */
 var hasPathSum = function(root, sum) {
+    // Do I have NO children?
+        // Is my value plus the running talley equal to SUM?
+            // If so, return true...
+            // If not, return false
+    // Pass the talley, and check if either of my children are valid leaves.
 
-    if(root === null) return false;
+    function goodPath(node, talley, target, path) {
+        path = path || [];
 
-    if(root.left === null && root.right === null && root.val === sum) return true;
+        if(node === null) return false;
         
-    if(root.left === null && root.right === null) {
-        return root.val === sum;
+        talley += node.val;
+        path.push(node.val);
+
+        if(node.left === null && node.right === null) {
+            var ans = talley === target;
+            console.log(path);
+            if(ans) {
+                return true;
+            }
+
+            return false;
+        }
+
+        return goodPath(node.left, talley, target, c(path)) || goodPath(node.right, talley, target, c(path));
     }
 
+    let p = [root.val];
+
     // let's go...
-    return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
+    return goodPath(root.left, root.val, sum, c(p)) || goodPath(root.right, root.val, sum, c(p));
 };
 
 // Definition for a binary tree node.
