@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/is-alien-sorted.js",
+            "program": "${workspaceFolder}/path-sum.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
